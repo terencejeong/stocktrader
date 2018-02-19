@@ -11,6 +11,9 @@ export default {
   name: 'App',
   components: {
     appHeader: Header
+  },
+  created() {
+    console.log("created!")
   }
 };
 </script>

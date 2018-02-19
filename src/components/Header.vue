@@ -14,7 +14,7 @@
           <router-link :to="{ name: 'Stocks'}"activeClass="active" tag="li"><a>Stocks</a></router-link>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">End Day</a></li>
+          <li><a href="#">End Day {{userFunds}}</a></li>
           <li class="dropdown">
             <a
                 href="#"
@@ -38,7 +38,14 @@
 </template>
 
 <script>
-export default {
+  import { mapGetters } from 'vuex'
+
+  export default {
+  computed: {
+    ...mapGetters({
+      userFunds: 'funds'
+    })
+  }
 }
 </script>
 

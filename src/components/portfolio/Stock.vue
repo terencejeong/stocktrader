@@ -1,9 +1,9 @@
 <template >
   <div class="col-sm-6 col-md-4">
-      <div class="panel panel-success">
+      <div class="panel panel-info class">
         <div class="panel-heading">
           <h3 class="panel-title">
-            {{stock.name}}<small>(Price: {{stock.price}})</small>
+            {{stock.name}}<small>(Price: {{stock.price}} | Quantity: {{stock.quantity}})</small>
           </h3>
         </div>
         <div class="panel-body">
@@ -17,10 +17,10 @@
           </div>
           <div class="pull-right">
             <button
-                class="btn btn-success"
-                @click="buyStock"
+                class="btn btn-info class"
+                @click="sellStock"
                 :disabled="quantity <= 0 || Number.isInteger(quantity)">
-                Buy
+                Sell
             </button>
           </div>
         </div>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: ['stock'],
   data() {
@@ -37,16 +38,14 @@ export default {
     }
   },
   methods: {
-    buyStock() {
+    ...mapActions(['SELLING_STOCKS']),
+    sellStock() {
       const order = {
         stockId: this.stock.id,
         stockPrice: this.stock.price,
-        quantity: parseInt(this.quantity)
-
+        quantity: this.quantity,
       }
-      console.log(order)
-      this.$store.dispatch('BUY_STOCKS', order)
-      this.quantity = 0
+      this.SELLING_STOCKS(order)
     }
   }
 }
